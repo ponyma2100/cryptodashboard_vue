@@ -45,7 +45,10 @@ import ArrowDownIcon from "../icons/arrow-down.svg";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { useCryptoStore } from "../stores/CryptoStore";
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
 
+const route = useRoute();
 const CryptoStore = useCryptoStore();
 
 

@@ -21,10 +21,15 @@ import RecentView from "../components/RecentView.vue";
 import MostTypeOfOrder from "../components/MostTypeOfOrder.vue";
 import getNews from "../composables/getNews";
 import { useCryptoStore } from "../stores/CryptoStore";
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
 
+const route = useRoute();
 const CryptoStore = useCryptoStore();
 
 CryptoStore.getCryptoList();
+
+
 </script>
 
 <style lang="scss" scoped></style>

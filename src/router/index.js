@@ -6,9 +6,11 @@ import CryptoDetails from "../views/CryptoDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
+    { path: '/', component: Home, redirect:{name:'home'}},
     {
-      path: "/",
+      path: "/home",
       name: "home",
       component: Home,
       meta: {

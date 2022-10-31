@@ -14,7 +14,6 @@
         <RouterLink :to="{ name: menu.name }">
           <button
             class="p-4 my-4 mr-4 ml-3 rounded-xl"
-            @click="activeMenu = menu.name"
             :class="
               activeMenu === menu.name
                 ? 'text-white shadow-primary bg-primary'
@@ -35,12 +34,23 @@ import HomeIcon from "../icons/home.svg";
 import WatchIcon from "../icons/watchlist.svg";
 import NotificationIcon from "../icons/notification.svg";
 import { ref } from "@vue/reactivity";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from 'vue-router'
+import { watchEffect } from "@vue/runtime-core";
+const router = useRouter()
 
 const route = useRoute();
 
-const activeMenu = ref("home");
-console.log("🚀 ~ file: Sidebar.vue ~ line 43 ~ activeMenu", activeMenu.value)
+const activeMenu = ref("");
+
+router.afterEach( (to, from) => {
+
+if (to.name === 'CryptoDetails') {
+  activeMenu.value = from.name
+} else {
+  activeMenu.value = route.name
+}
+})
+
 
 const menus = [
   { name: "home", icon: HomeIcon },
