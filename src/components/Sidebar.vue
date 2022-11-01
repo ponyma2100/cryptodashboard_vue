@@ -34,23 +34,20 @@ import HomeIcon from "../icons/home.svg";
 import WatchIcon from "../icons/watchlist.svg";
 import NotificationIcon from "../icons/notification.svg";
 import { ref } from "@vue/reactivity";
-import { useRouter, useRoute } from 'vue-router'
-import { watchEffect } from "@vue/runtime-core";
-const router = useRouter()
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
 
 const route = useRoute();
 
 const activeMenu = ref("");
 
-router.afterEach( (to, from) => {
-
-if (to.name === 'CryptoDetails') {
-  activeMenu.value = from.name
-} else {
-  activeMenu.value = route.name
-}
-})
-
+router.afterEach((to, from) => {
+  if (to.name === "CryptoDetails") {
+    activeMenu.value = from.name;
+  } else {
+    activeMenu.value = route.name;
+  }
+});
 
 const menus = [
   { name: "home", icon: HomeIcon },
