@@ -13,6 +13,7 @@ const getCrypto = () => {
   let coinLists = ref([]);
   let topCoins = ref([]);
   let coinDetails = ref({});
+  let coinHistory = ref([])
   let stats = ref([]);
   let genericStats = ref([]);
 
@@ -103,16 +104,33 @@ const getCrypto = () => {
       console.log(error);
     }
   };
+  const getHistory = async (id = "Qwsogvtv82FCd", timePeriod="24h") => {
+    try {
+      const response = await fetch(
+        `https://coinranking1.p.rapidapi.com/coin/${id}/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=${timePeriod}`,
+        options
+      );
+      const res = await response.json();
+      const data = await res.data;
+
+      coinHistory.value = await data.history;
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return {
     getCrypto,
     getCoinLists,
     getDetails,
+    getHistory,
     coinLists,
     topCoins,
     coinDetails,
     stats,
     genericStats,
+    coinHistory
   };
 };
 

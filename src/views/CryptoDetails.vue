@@ -30,6 +30,14 @@
         </p>
       </header>
       <hr class="border-gray-700" />
+      <!-- <LineChart /> -->
+      <div class="h-200px">
+        <Line
+          :chartData="chartData"
+          
+        />
+      </div>
+      
       <CoinStats />
     </main>
   </div>
@@ -39,9 +47,61 @@
 import CoinStats from "../components/CoinStats.vue";
 import { useRoute } from "vue-router";
 import { useCryptoStore } from "../stores/CryptoStore";
+import getCrypto from '../composables/getCrypto'
+import { Line } from "vue-chartjs";
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale ,PointElement,LineElement} from 'chart.js'
+import { ref } from "@vue/reactivity";
+import { computed, onMounted } from "@vue/runtime-core";
 
+const {getHistory,coinHistory} = getCrypto()
 const route = useRoute();
 const CryptoStore = useCryptoStore();
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,PointElement,LineElement)
+
+onMounted(async() => {
+  await getHistory()
+
+})
+
+
+const coinPrice = computed(() => {
+  return coinHistory.value.map(h => h.price)
+} )
+const coinTimestamp = computed(() => {
+  return coinHistory.value.map(h => new Date(h.timestamp).toLocaleDateString())
+} )
+
+
+const chartData = computed(() => ({
+      labels: coinTimestamp.value,
+      datasets: [
+    {
+      label: 'Price in USD',
+      data: coinPrice.value,
+      fill: false,
+      backgroundColor: '#0071bd',
+      borderColor: '#0071bd'
+    }
+  ]
+    }))
+
+    const chartOptions = computed(() => ({
+      scales: {
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true
+        }
+      }
+    ]
+  },
+      // responsive: true,
+      maintainAspectRatio: false
+    }))
+
+
+
 </script>
 
 <style lang="scss" scoped></style>

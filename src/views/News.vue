@@ -12,9 +12,9 @@
       <hr class="border-gray-700" />
       <div class="flex w-3/4">
         <button
-          @click="handleSearch('cryptocurrency')"
+          @click="handleSearch('All')"
           :class="
-            activeButton === 'cryptocurrency' ? 'text-white bg-sky-900' : ''
+            activeButton === 'All' ? 'text-white bg-sky-800' : ''
           "
           class="flex justify-center items-center bg-gray-700 text-gray-200 w-full h-10 rounded-2xl p-3 mr-3"
         >
@@ -25,7 +25,7 @@
           :key="coin.uuid"
           class="flex justify-center items-center bg-gray-700 text-gray-200 w-full h-10 rounded-2xl p-3 mr-3"
           @click="handleSearch(coin.name)"
-          :class="activeButton === coin.name ? 'text-white bg-sky-900' : ''"
+          :class="activeButton === coin.name ? 'text-white bg-sky-800' : ''"
         >
           {{ coin.name }}
         </button>
@@ -76,10 +76,9 @@ const { getCoinLists, topCoins } = getCrypto();
 getNewsLists();
 getCoinLists();
 
-const activeButton = ref("cryptocurrency");
+const activeButton = ref("All");
 
 const handleSearch = async (cryptoName) => {
-  console.log(cryptoName);
   activeButton.value = cryptoName;
   await getNewsLists(cryptoName);
 };
