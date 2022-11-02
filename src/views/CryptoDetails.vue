@@ -83,6 +83,7 @@ import CoinStats from "../components/CoinStats.vue";
 import { useRoute } from "vue-router";
 import { useCryptoStore } from "../stores/CryptoStore";
 import getCrypto from "../composables/getCrypto";
+import moment from "moment";
 import { Line } from "vue-chartjs";
 import {
   Chart as ChartJS,
@@ -127,7 +128,7 @@ const coinPrice = computed(() => {
 });
 const coinTimestamp = computed(() => {
   return coinHistory.value.map((h) =>
-    new Date(h.timestamp * 1000).toLocaleDateString()
+    moment(h.timestamp * 1000).format("YYYY/MM/DD, h:mm")
   );
 });
 
