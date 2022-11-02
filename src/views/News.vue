@@ -77,10 +77,6 @@ getCoinLists();
 const activeButton = ref("All");
 
 const handleSearch = async (cryptoName) => {
-  console.log(
-    "🚀 ~ file: News.vue ~ line 82 ~ handleSearch ~ cryptoName",
-    cryptoName
-  );
   activeButton.value = cryptoName;
   await getNewsLists(cryptoName);
 };

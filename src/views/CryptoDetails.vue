@@ -128,7 +128,7 @@ const coinPrice = computed(() => {
 });
 const coinTimestamp = computed(() => {
   return coinHistory.value.map((h) =>
-    moment(h.timestamp * 1000).format("YYYY/MM/DD, h:mm")
+    moment(h.timestamp * 1000).format("YYYY/MM/DD, h:mm a")
   );
 });
 

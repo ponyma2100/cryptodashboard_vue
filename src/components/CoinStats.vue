@@ -80,7 +80,9 @@
           </div>
         </div>
       </div>
-
+    </div>
+    <!-- -------------------------------------- -->
+    <div class="flex flex-row justify-between flex-wrap gap-6 w-full">
       <!-- links -->
       <div class="flex flex-col p-6 bg-gray-900 rounded-lg gap-y-6 w-1/2">
         <div class="flex flex-col">
@@ -89,26 +91,50 @@
           </h2>
         </div>
         <hr class="border-gray-700" />
-        <div class="flex flex-col gap-y-4">
+        <div
+          class="flex justify-start gap-x-4 items-center"
+          v-for="info in CryptoStore.cryptoDetails.links"
+          :key="info"
+        >
+          <i
+            class="material-icons material-symbols-sharp w-6 h-6 fill-current text-sky-700"
+          >
+            link
+          </i>
+          <div class="text-sm font-medium text-gray-500 grow">
+            {{ info.type }}
+          </div>
+          <a
+            :href="info.url"
+            target="_blank"
+            class="text-sm font-medium text-sky-500"
+            >{{ info.url }}</a
+          >
+        </div>
+      </div>
+
+      <!-- News -->
+      <div
+        class="flex flex-col p-6 bg-gray-900 rounded-lg gap-y-6 overflow-y-scroll no-scrollbar grow"
+      >
+        <h2 class="text-xl font-semibold leading-loose text-sky-300">News</h2>
+        <hr class="border-gray-700" />
+        <div class="flex flex-col gap-y-4 max-h-96 items-baseline">
           <div
-            class="flex justify-between gap-x-4 items-center"
-            v-for="info in CryptoStore.cryptoDetails.links"
-            :key="info"
+            class="flex justify-between gap-x-4"
+            v-for="news in newsLists"
+            :key="news.name"
           >
             <i
               class="material-icons material-symbols-sharp w-6 h-6 fill-current text-sky-700"
             >
-              link
+              feed
             </i>
-            <div class="text-sm font-medium text-gray-500 grow">
-              {{ info.type }}
-            </div>
-            <a
-              :href="info.url"
-              target="_blank"
-              class="text-sm font-medium text-sky-500"
-              >{{ info.url }}</a
-            >
+            <a :href="news.url" target="_blank">
+              <div class="text-sm font-medium text-gray-500 max-w-lg">
+                {{ news.name }}
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -119,13 +145,20 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { useCryptoStore } from "../stores/CryptoStore";
+import getNews from "../composables/getNews";
+import { watchEffect } from "@vue/runtime-core";
 
+const { getNewsLists, newsLists } = getNews();
 const route = useRoute();
 const CryptoStore = useCryptoStore();
 
 CryptoStore.getCryptoDetails(route.params.id);
 
 CryptoStore.cryptoMatchingFav(route.params.id);
+
+watchEffect(() => {
+  getNewsLists(CryptoStore.cryptoDetails.name);
+});
 </script>
 
 <style lang="scss" scoped></style>
