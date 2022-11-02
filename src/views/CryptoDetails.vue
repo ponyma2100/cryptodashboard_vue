@@ -33,6 +33,40 @@
 
       <!-- LineChart -->
       <div>
+        <div class="flex w-full">
+          <select
+            name=""
+            id=""
+            v-model="chartInterval"
+            @change="handleInterval(chartInterval)"
+            class="w-24 mr-10"
+          >
+            <option value="3h">3h</option>
+            <option value="24h" selected>24h</option>
+            <option value="7d">7d</option>
+            <option value="30d">30d</option>
+            <option value="3m">3m</option>
+            <option value="1y">1y</option>
+            <option value="3y">3y</option>
+            <option value="5y">5y</option>
+          </select>
+          <div
+            class="flex justify-center text-gray-300 items-center font-semibold leading-loose"
+          >
+            <span class="mr-10"
+              >Current {{ CryptoStore.cryptoDetails.name }} Price: $
+              {{ CryptoStore.cryptoDetails.price }}</span
+            >
+            <span
+              :class="
+                Number(CryptoStore.cryptoDetails.change) >= 0
+                  ? 'text-accent-red'
+                  : 'text-accent-green'
+              "
+              >Change: {{ CryptoStore.cryptoDetails.change }}</span
+            >
+          </div>
+        </div>
         <Line
           :chartData="chartData"
           :chartOptions="chartOptions"
@@ -67,6 +101,7 @@ import { computed, onMounted } from "@vue/runtime-core";
 const { getHistory, coinHistory } = getCrypto();
 const route = useRoute();
 const CryptoStore = useCryptoStore();
+const chartInterval = ref("24h");
 
 ChartJS.register(
   Title,
@@ -80,8 +115,12 @@ ChartJS.register(
 );
 
 onMounted(async () => {
-  await getHistory(route.params.id);
+  await getHistory(route.params.id, chartInterval.value);
 });
+
+const handleInterval = () => {
+  getHistory(route.params.id, chartInterval.value);
+};
 
 const coinPrice = computed(() => {
   return coinHistory.value.map((h) => h.price);
@@ -93,11 +132,11 @@ const coinTimestamp = computed(() => {
 });
 
 const chartData = computed(() => ({
-  labels: coinTimestamp.value,
+  labels: coinTimestamp.value.reverse(),
   datasets: [
     {
       label: "Price in USD",
-      data: coinPrice.value,
+      data: coinPrice.value.reverse(),
       fill: false,
       backgroundColor: "#0071bd",
       borderColor: "#0071bd",
