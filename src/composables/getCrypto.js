@@ -4,16 +4,18 @@ import GraphIcon from "../icons/graph.svg";
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "1d13827cf3msh221ed2de212c7bcp1960b5jsn4c2b3f1fc626",
+    "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY,
     "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
   },
 };
+
+const apiKey = import.meta.env.VITE_RAPIDAPI_KEY;
 
 const getCrypto = () => {
   let coinLists = ref([]);
   let topCoins = ref([]);
   let coinDetails = ref({});
-  let coinHistory = ref([])
+  let coinHistory = ref([]);
   let stats = ref([]);
   let genericStats = ref([]);
 
@@ -104,7 +106,7 @@ const getCrypto = () => {
       console.log(error);
     }
   };
-  const getHistory = async (id = "Qwsogvtv82FCd", timePeriod="24h") => {
+  const getHistory = async (id = "Qwsogvtv82FCd", timePeriod = "24h") => {
     try {
       const response = await fetch(
         `https://coinranking1.p.rapidapi.com/coin/${id}/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=${timePeriod}`,
@@ -114,7 +116,6 @@ const getCrypto = () => {
       const data = await res.data;
 
       coinHistory.value = await data.history;
-
     } catch (error) {
       console.log(error);
     }
@@ -130,7 +131,7 @@ const getCrypto = () => {
     coinDetails,
     stats,
     genericStats,
-    coinHistory
+    coinHistory,
   };
 };
 
