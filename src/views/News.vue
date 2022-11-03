@@ -13,7 +13,7 @@
       <div class="flex w-3/4">
         <button
           @click="handleSearch('All')"
-          :class="activeButton === 'All' ? 'text-white bg-sky-600' : ''"
+          :class="activeButton === 'All' ? 'text-white bg-sky-700' : ''"
           class="flex justify-center items-center bg-gray-700 text-gray-200 w-full h-10 rounded-2xl p-3 mr-3"
         >
           All
@@ -23,7 +23,7 @@
           :key="coin.uuid"
           class="flex justify-center items-center bg-gray-700 text-gray-200 w-full h-10 rounded-2xl p-3 mr-3"
           @click="handleSearch(coin.name)"
-          :class="activeButton === coin.name ? 'text-white bg-sky-600' : ''"
+          :class="activeButton === coin.name ? 'text-white bg-sky-700' : ''"
         >
           {{ coin.name }}
         </button>
