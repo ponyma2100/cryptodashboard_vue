@@ -15,7 +15,6 @@ export const useCryptoStore = defineStore("cryptoStore", {
     recentList: JSON.parse(localStorage.getItem("recentIds")) || [
       "Qwsogvtv82FCd",
     ],
-    // recentLists: [],
     favCryptoIds: JSON.parse(localStorage.getItem("favCryptoIds")) || [
       "Qwsogvtv82FCd",
     ],
