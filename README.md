@@ -1,3 +1,13 @@
+# Link
+https://ponyma2100.github.io/cryptodashboard_vue/
+
+# Introduction
+
+- A Cryptocurrency App project building by vue3
+- State Management Using Pinia
+- Creating charts using Chart.js
+- Fetching data from multiple sources using RapidAPI
+
 # dashboard_vue
 
 This template should help get you started developing with Vue 3 in Vite.
