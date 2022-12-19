@@ -1,6 +1,8 @@
 # Link
 https://ponyma2100.github.io/cryptodashboard_vue/
 
+<img src="https://raw.githubusercontent.com/ponyma2100/cryptodashboard_vue/master/crypto.png" alt="Cover" width="50%"/>
+
 # Introduction
 
 - A Cryptocurrency App project building by vue3
